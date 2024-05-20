@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>nevienadība: a ln(bx + c) + d > 0</title>
+		<meta name="author" content="Alexander Kuznecov" />
+		<link rel="stylesheet" href="./styles/style.css" />
+		<script src="https://kit.fontawesome.com/39bbe9b596.js" crossorigin="anonymous"></script>
+	</head>
+	<body>
+		<main class="main">
+			<div class="main__container container">
+				<div class="main__inner">
+					<div class="main__info">
+						<h1 class="title">Logarithms</h1>
+					</div>
+					<div class="main__task">
+						<div class="block-item">
+							<h1>Pamata informacija par nevienadību: a ln(bx + c) + d &gt; 0</h1>
+							<div class="content">
+								<p>
+									Koeficients a: attiecas uz koeficientu, kas mēro naturālā logaritma funkciju ln. Tas nosaka funkcijas grafika līknes slīpumu vai gradientu.<br /><br />
+									Koeficients b: Attiecas uz koeficientu, kas nosaka logaritma bx+c bāzes mērogošanu. Tas nosaka, cik ātri mainās logaritma arguments gar absceses asi.<br /><br />
+									Koeficients c: attiecas uz koeficientu, kas pārvieto logaritma bx+c argumentu pa absceses asi. Tas nosaka grafika krustošanās punktu ar x asi.<br /><br />
+									Koeficients d: apzīmē funkcijas vertikālo pārvietojumu. Tas nosaka, cik ļoti funkcijas grafiks ir nobīdīts uz augšu vai uz leju.
+								</p>
+							</div>
+						</div>
+
+						<div class="block-item">
+							<div class="input-item">
+								<label for="input1">a:</label>
+								<input type="number" name="input1" id="aVariable" />
+							</div>
+
+							<div class="input-item">
+								<label for="input2">b:</label>
+								<input type="number" name="input2" id="bVariable" />
+							</div>
+
+							<div class="input-item">
+								<label for="input4">c:</label>
+								<input type="number" name="input4" id="cVariable" />
+							</div>
+
+							<div class="input-item">
+								<label for="input5">d:</label>
+								<input type="number" name="input5" id="dVariable" />
+							</div>
+							<button onclick="mainFunction()">Solve</button>
+						</div>
+						<canvas id="myCanvas" width="400px" height="400" style="border: 1px solid; border-radius: 3px">Hello</canvas>
+					</div>
+				</div>
+				<!--  Paskaidrojumi par to, kā projekts darbojas  -->
+				<!-- <details>
+					<summary>Informacija</summary>
+					<p>Informacija par projektu</p>
+				</details> -->
+			</div>
+		</main>
+		<!-- /.main -->
+
+		<footer class="footer"> Made by Alexander Kuznecov 2024 &copy; </footer>
+		<!-- /.footer -->
+
+		<!-- script -->
+		<script src="./scripts/script.js"></script>
+	</body>
+</html>
