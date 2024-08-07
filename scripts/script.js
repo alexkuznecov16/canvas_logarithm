@@ -69,42 +69,17 @@ const findRoot = (a, b, c, d, x1, x2) => {
 
 // Function to solve and find roots
 const solveAndFindRoots = (a, b, c, d) => {
-	let positiveIntervals = ''; // Positive intervals
-	let roots = []; // Array of roots
-	let lastX = null;
-
-	for (let x = 0; x < myCanvas.width; x++) {
-		const y = a * Math.log((b * (x - myCanvas.width / 2)) / 20 + c) + d; // y value
-
-		if (y > 0) {
-			if (lastX === null) {
-				lastX = x;
-			}
-		} else {
-			if (lastX !== null) {
-				positiveIntervals += `[${lastX}, ${x}] `;
-				try {
-					const root = findRoot(a, b, c, d, lastX, x);
-					roots.push(root);
-				} catch (e) {
-					console.error(e.message);
-				}
-				lastX = null;
-			}
-		}
-	}
-
-	if (lastX !== null) {
-		positiveIntervals += `[${lastX}, ${myCanvas.width}]`;
-		try {
-			const root = findRoot(a, b, c, d, lastX, myCanvas.width);
-			roots.push(root);
-		} catch (e) {
-			console.error(e.message);
-		}
-	}
-
-	document.getElementById('result-area').innerText = `Intervals: ${positiveIntervals}\n${roots.length <= 0 ? '' : 'Roots: ' + roots.map(root => root.toFixed(2)).join(', ')}`;
+	const exponent = d / a; // exponent
+	const exponentValue = Math.exp(exponent); // exponent value
+	const root = (exponentValue - c) / b; // root
+	console.log(`1) ${a} ln (${b}x + ${c}) - ${d} > 0  | +${d}`);
+	console.log(`2) ${a} ln (${b}x + ${c}) > ${d}  | /${a}`);
+	console.log(`3) ln (${b}x + ${c}) > ${d} / ${a}`);
+	console.log(`4) ${b}x + ${c} > e^${exponent}  | -${c}`);
+	console.log(`5) ${b}x > e^${exponent} - ${c}  | /${b}`);
+	console.log(`6) x > (e^${exponent} - ${c}) / ${b}`);
+	console.log(`Root: (e^${exponent} - ${c}) / ${b}, +${Infinity})`);
+	console.log(`Root: (${root.toFixed(2)}, +${Infinity})`);
 };
 
 // Function to output the result
