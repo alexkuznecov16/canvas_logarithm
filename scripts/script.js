@@ -80,6 +80,7 @@ const solveAndFindRoots = (a, b, c, d) => {
 	console.log(`6) x > (e^${exponent} - ${c}) / ${b}`);
 	console.log(`Root: (e^${exponent} - ${c}) / ${b}, +${Infinity})`);
 	console.log(`Root: (${root.toFixed(2)}, +${Infinity})`);
+	
 };
 
 // Function to output the result
