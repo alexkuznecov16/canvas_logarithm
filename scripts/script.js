@@ -35,13 +35,47 @@ const checkFunction = (a, b, c, d) => {
 	return result;
 };
 
-// Функция для решения неравенства и нахождения корней
+// Function (Bisection method) inequality finding roots
+// Divide to 2 parts
+const findRoot = (a, b, c, d, x1, x2) => {
+	const precision = 0.000001; // Precision for root finding
+	let mid, yMid, y1, y2; // Middle, y middle, initial y, and final y values
+
+	const f = x => a * Math.log(b * x + c) + d; // Function to find the root of
+
+	y1 = f(x1);
+	y2 = f(x2);
+
+	// Ensure that the interval contains a root
+	if (y1 * y2 > 0) {
+		console.error(`No root in interval [${x1}, ${x2}]: f(${x1}) = ${y1}, f(${x2}) = ${y2}`);
+		throw new Error('The interval does not contain a root.');
+	}
+
+	while (x2 - x1 > precision) {
+		mid = (x1 + x2) / 2; // Middle of the interval
+		yMid = f(mid);
+
+		if (yMid * y1 < 0) {
+			x2 = mid; // Root is in the first part of interval
+		} else {
+			x1 = mid; // Root is in the second part of interval
+			y1 = yMid; // Update y1 for the next interval
+		}
+	}
+
+	return (x1 + x2) / 2; // Return the midpoint as the root
+};
+
+// Function to solve and find roots
 const solveAndFindRoots = (a, b, c, d) => {
-	// Решение неравенства
-	let positiveIntervals = '';
+	let positiveIntervals = ''; // Positive intervals
+	let roots = []; // Array of roots
 	let lastX = null;
-	for (let x = 0; x < myCanvas.width; x += 1) {
-		const y = a * Math.log((b * (x - myCanvas.width / 2)) / 20 + c) + d;
+
+	for (let x = 0; x < myCanvas.width; x++) {
+		const y = a * Math.log((b * (x - myCanvas.width / 2)) / 20 + c) + d; // y value
+
 		if (y > 0) {
 			if (lastX === null) {
 				lastX = x;
@@ -49,31 +83,28 @@ const solveAndFindRoots = (a, b, c, d) => {
 		} else {
 			if (lastX !== null) {
 				positiveIntervals += `[${lastX}, ${x}] `;
+				try {
+					const root = findRoot(a, b, c, d, lastX, x);
+					roots.push(root);
+				} catch (e) {
+					console.error(e.message);
+				}
 				lastX = null;
 			}
 		}
 	}
+
 	if (lastX !== null) {
 		positiveIntervals += `[${lastX}, ${myCanvas.width}]`;
-	}
-
-	// Вывод результата
-	document.getElementById('result-area').innerText = `Интервалы, на которых неравенство выполняется: ${positiveIntervals}`;
-};
-
-// Функция для нахождения корня методом половинного деления
-const findRoot = (a, b, c, d, x1, x2) => {
-	const EPS = 1e-6; // Точность
-	while (x2 - x1 > EPS) {
-		const mid = (x1 + x2) / 2;
-		const y = a * Math.log((b * (mid - myCanvas.width / 2)) / 20 + c) + d;
-		if (y * (a * Math.log((b * (x1 - myCanvas.width / 2)) / 20 + c) + d) < 0) {
-			x2 = mid;
-		} else {
-			x1 = mid;
+		try {
+			const root = findRoot(a, b, c, d, lastX, myCanvas.width);
+			roots.push(root);
+		} catch (e) {
+			console.error(e.message);
 		}
 	}
-	return (x1 + x2) / 2;
+
+	document.getElementById('result-area').innerText = `Intervals: ${positiveIntervals}\n${roots.length <= 0 ? '' : 'Roots: ' + roots.map(root => root.toFixed(2)).join(', ')}`;
 };
 
 // Function to output the result
@@ -134,11 +165,11 @@ const startGraph = (a, b, c, d) => {
 	ctx.beginPath();
 	ctx.strokeStyle = 'green';
 	ctx.lineWidth = 2;
-	for (let x = 0; x < myCanvas.width; x += 1) {
+	for (let x = 0; x < myCanvas.width; x++) {
 		let y = a * Math.log((b * (x - myCanvas.width / 2)) / 20 + c) + d;
-		// if y-value is not negative
+		// if y-value is negative
 		if (y < 0) {
-			y = 0;
+			y = -myCanvas.height;
 		}
 		ctx.lineTo(x, myCanvas.height / 2 - y);
 	}
