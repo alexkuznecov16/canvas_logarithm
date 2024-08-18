@@ -35,58 +35,55 @@ const checkFunction = (a, b, c, d) => {
 	return result;
 };
 
-// Function (Bisection method) inequality finding roots
-// Divide to 2 parts
-const findRoot = (a, b, c, d, x1, x2) => {
-	const precision = 0.000001; // Precision for root finding
-	let mid, yMid, y1, y2; // Middle, y middle, initial y, and final y values
-
-	const f = x => a * Math.log(b * x + c) + d; // Function to find the root of
-
-	y1 = f(x1);
-	y2 = f(x2);
-
-	// Ensure that the interval contains a root
-	if (y1 * y2 > 0) {
-		console.error(`No root in interval [${x1}, ${x2}]: f(${x1}) = ${y1}, f(${x2}) = ${y2}`);
-		throw new Error('The interval does not contain a root.');
-	}
-
-	while (x2 - x1 > precision) {
-		mid = (x1 + x2) / 2; // Middle of the interval
-		yMid = f(mid);
-
-		if (yMid * y1 < 0) {
-			x2 = mid; // Root is in the first part of interval
-		} else {
-			x1 = mid; // Root is in the second part of interval
-			y1 = yMid; // Update y1 for the next interval
-		}
-	}
-
-	return (x1 + x2) / 2; // Return the midpoint as the root
-};
-
 // Function to solve and find roots
 const solveAndFindRoots = (a, b, c, d) => {
-	const exponent = d / a; // exponent
-	const exponentValue = Math.exp(exponent); // exponent value
-	const root = (exponentValue - c) / b; // root
-	console.log(`1) ${a} ln (${b}x + ${c}) - ${d} > 0  | +${d}`);
-	console.log(`2) ${a} ln (${b}x + ${c}) > ${d}  | /${a}`);
-	console.log(`3) ln (${b}x + ${c}) > ${d} / ${a}`);
-	console.log(`4) ${b}x + ${c} > e^${exponent}  | -${c}`);
-	console.log(`5) ${b}x > e^${exponent} - ${c}  | /${b}`);
-	console.log(`6) x > (e^${exponent} - ${c}) / ${b}`);
-	console.log(`Root: (e^${exponent} - ${c}) / ${b}, +${Infinity})`);
-	console.log(`Root: (${root.toFixed(2)}, +${Infinity})`);
-	
+	const exponent = -d / a; // Exponent (negative value for correct endline)
+	const exponentValue = Math.exp(exponent); // Exponent value
+	const root = (exponentValue - c) / b; // Root
+
+	// Inequality sign symbol check
+	const inequalitySign = a < 0 || b < 0 ? '>' : '<';
+
+	// Get interval by inequality sign
+	let interval;
+	if (inequalitySign === '>') {
+		interval = `(${root.toFixed(2)}, +∞)`;
+	} else {
+		interval = `(-∞, ${root.toFixed(2)})`;
+	}
+
+	// Console log (correct solution) - удалить потом эти логи!!!
+	console.log(`1) ${a} ln(${b}x ${c < 0 ? c : '+ ' + c}) ${d < 0 ? '- ' + Math.abs(d) : '+ ' + d} < 0`);
+	console.log(`2) ${a} ln(${b}x ${c < 0 ? c : '+ ' + c}) < ${-d} | /${a}`);
+	console.log(`3) ln(${b}x ${c < 0 ? c : '+ ' + c}) ${a < 0 ? '>' : '<'} ${-d / a}`);
+	console.log(`4) ${b}x ${c < 0 ? c : '+ ' + c} ${a < 0 ? '>' : '<'} e^${exponent}`);
+	console.log(`5) ${b}x ${inequalitySign} e^${exponent} ${c < 0 ? '+ ' + c : '- ' + c}`); /*
+
+	Как -d/a превратилось в степень экспонента?
+
+	Я использовал свойство натурального логарифма: если ln(a) = b, значит a = e^b
+	Пример: ln(7x + 3) < -2.5
+
+	Шаги:
+	1) используем: ln(a) = b, значит a = e^b
+	2) получаем: 7x + 3 < e^(-2.5)
+	3) Продолжаем решать неравенство.
+
+	Оно помогает нам устранить логарифм для решения неравенства.
+
+	Поэтому получилось => bx + c (< или >) e^(-d / a)
+
+	*/
+	console.log(`6) x ${inequalitySign} (e^${exponent} ${c < 0 ? '+ ' + c : '- ' + c}) / ${b}`);
+	console.log(`Root: ${interval}`);
+
+	document.getElementById('result-area').value = `Root: ${interval}`; // print result
 };
 
 // Function to output the result
 const outputFunction = (checkResult, a, b, c, d) => {
 	if (checkResult[0]) {
-		// If data is valid, start graph
+		// If data is valid, start graph and solve inequality
 		startGraph(a, b, c, d);
 		solveAndFindRoots(a, b, c, d);
 	} else {

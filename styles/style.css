@@ -41,6 +41,19 @@ br {
 /* default styles end ================================  */
 
 /* main block styles start ================================  */
+#google_translate_element {
+  position: fixed;
+  right: 15px;
+  top: 15px;
+  padding: 3px 6px;
+  background-color: #ffe0bb;
+  color: red;
+  text-align: center;
+  border: 2px solid orange;
+  border-radius: 12px;
+  box-shadow: 12px 12px 8px #7b8180;
+}
+
 .main {
   background-color: #f0f0f0;
   width: 100%;
@@ -85,6 +98,7 @@ br {
   -o-border-radius: 5px;
   border-radius: 5px;
   background: aliceblue;
+  resize: none;
 }
 
 .block-item:nth-child(1) {
@@ -103,10 +117,6 @@ br {
 .block-item:nth-child(1) p {
   text-align: left;
   font-size: clamp(7px, 4vw, 14px);
-}
-
-.content {
-  padding: 10px;
 }
 
 .content {
@@ -153,13 +163,9 @@ button {
   transition: .2s linear;
 }
 
-
-
 button:hover {
   background-color: #7cafe4;
 }
-
-
 
 textarea {
   margin-top: 10px;
@@ -253,3 +259,32 @@ summary {
   text-align: center;
 }
 /* footer block styles start ================================  */
+
+
+@media screen and (max-width: 700px) {
+  #google_translate_element {
+    padding: 3px 6px;
+    background-color: #ffe0bb;
+    font-size: 10px;
+    color: red;
+    text-align: center;
+    border: 2px solid orange;
+    border-radius: 12px;
+    box-shadow: 12px 12px 8px #7b8180;
+    max-width: 100px;
+    word-wrap: break-word;
+  }
+
+  .goog-te-gadget .goog-te-combo {
+    font-size: 10px;
+  }
+
+  .goog-te-gadget {
+    white-space: unset !important;
+  }
+
+  .goog-te-gadget img {
+    width: 25px;
+    height: 8px;
+  }
+}

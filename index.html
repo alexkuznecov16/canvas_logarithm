@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lv">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,6 +10,7 @@
 	</head>
 	<body>
 		<main class="main">
+			<div id="google_translate_element">Atlasiet valodu:</div>
 			<div class="main__container container">
 				<div class="main__inner">
 					<div class="main__info">
@@ -17,7 +18,7 @@
 					</div>
 					<div class="main__task">
 						<div class="block-item">
-							<h1>Pamata informacija par nevienadību: a ln(bx + c) + d &gt; 0</h1>
+							<h1>Pamata informacija par nevienadību: a ln(bx + c) + d &lt; 0</h1>
 							<div class="content">
 								<p>
 									Koeficients a: attiecas uz koeficientu, kas mēro naturālā logaritma funkciju ln. Tas nosaka funkcijas grafika līknes slīpumu vai gradientu.<br /><br />
@@ -31,34 +32,29 @@
 						<div class="block-item">
 							<div class="input-item">
 								<label for="input1">a:</label>
-								<input value='2' type="number" name="input1" id="aVariable" />
+								<input value="2" type="number" name="input1" id="aVariable" />
 							</div>
 
 							<div class="input-item">
 								<label for="input2">b:</label>
-								<input value='7' type="number" name="input2" id="bVariable" />
+								<input value="7" type="number" name="input2" id="bVariable" />
 							</div>
 
 							<div class="input-item">
 								<label for="input4">c:</label>
-								<input value='3' type="number" name="input4" id="cVariable" />
+								<input value="3" type="number" name="input4" id="cVariable" />
 							</div>
 
 							<div class="input-item">
 								<label for="input5">d:</label>
-								<input value='5' type="number" name="input5" id="dVariable" />
+								<input value="5" type="number" name="input5" id="dVariable" />
 							</div>
-							<button onclick="mainFunction()">Solve</button>
+							<button type="button" onclick="mainFunction()">Solve</button>
 						</div>
-						<canvas id="myCanvas" width="400px" height="400" style="border: 1px solid; border-radius: 3px">Hello</canvas>
-						<textarea id="result-area" class="block-item">Rezultats</textarea>
+						<canvas id="myCanvas" width="400px" height="400px" style="border: 1px solid; border-radius: 3px"></canvas>
+						<textarea readonly id="result-area" class="block-item">Rezultats</textarea>
 					</div>
 				</div>
-				<!--  Paskaidrojumi par to, kā projekts darbojas  -->
-				<!-- <details>
-					<summary>Informacija</summary>
-					<p>Informacija par projektu</p>
-				</details> -->
 			</div>
 		</main>
 		<!-- /.main -->
@@ -68,5 +64,11 @@
 
 		<!-- script -->
 		<script src="./scripts/script.js"></script>
+		<script type="text/javascript">
+			function googleTranslateElementInit() {
+				new google.translate.TranslateElement({pageLanguage: 'lv', includedLanguages: 'de,en,ru,lv'}, 'google_translate_element');
+			}
+		</script>
+		<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 	</body>
 </html>
